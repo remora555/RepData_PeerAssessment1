@@ -52,7 +52,34 @@ Intervals[match(max(StepsAvg),StepsAvg)]
 ## Inputing missing values
 ```{r echo=TRUE}
 sum(is.na(pData))
+## use the mean for that 5 minute interval
+nData<-pData
+i<-1
+for (ival in nData)
+{
+        if(is.na(ival[1]))
+        {
+                nData[i,1]<-StepsAvg[match(ival[3],Intervals)]
+                i <-i+1
+        }
+}
+
+
+Steps<-0
+i<-1
+for ( ival in alldates)
+{
+        Steps[i] <- sum(nData[nData$date==alldates[i],1],na.rm = T)
+        i <-i+1
+}
+Dates<-strptime(alldates,"%Y-%m-%d")
+hist(Steps)
+mean(Steps,na.rm = TRUE)
+median(Steps,na.rm = TRUE)
+
 ```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+Couldn't do, Not enough time :(
