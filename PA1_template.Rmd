@@ -1,25 +1,58 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
 output: 
-  html_document:
-    keep_md: true
+html_document:
+keep_md: true
 ---
 
 
 ## Loading and preprocessing the data
 
+```{r echo=TRUE}
+pData <- read.csv("activity.csv")
+alldates <- unique(pData$date)
 
+
+```
 
 ## What is mean total number of steps taken per day?
-
+```{r echo=TRUE}
+Steps<-0
+i<-1
+for ( ival in alldates)
+{
+        Steps[i] <- sum(pData[pData$date==alldates[i],1],na.rm = T)
+        i <-i+1
+}
+Dates<-strptime(alldates,"%Y-%m-%d")
+hist(Steps)
+mean(Steps,na.rm = TRUE)
+median(Steps,na.rm = TRUE)
+```
 
 
 ## What is the average daily activity pattern?
+```{r echo=TRUE}
+StepsAvg<-0
+Intervals <- unique(pData$interval)
+i<-1
+for ( ival in Intervals)
+{
+        StepsAvg[i] <- mean(pData[pData$interval==Intervals[i],1],na.rm = T)
+        i <-i+1
+}
+plot(Intervals,StepsAvg,type = "l")
+```
+
+```{r echo=TRUE}
+Intervals[match(max(StepsAvg),StepsAvg)]
+```
 
 
-
-## Imputing missing values
-
+## Inputing missing values
+```{r echo=TRUE}
+sum(is.na(pData))
+```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
