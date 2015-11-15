@@ -55,13 +55,13 @@ sum(is.na(pData))
 ## use the mean for that 5 minute interval
 nData<-pData
 i<-1
-for (ival in nData)
+for (ival in nData$steps)
 {
         if(is.na(ival[1]))
         {
-                nData[i,1]<-StepsAvg[match(ival[3],Intervals)]
-                i <-i+1
+                nData[i,1]<- StepsAvg[match(nData[i,3],Intervals)]
         }
+        i <-i+1
 }
 
 
