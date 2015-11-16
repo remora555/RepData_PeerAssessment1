@@ -81,5 +81,11 @@ median(Steps,na.rm = TRUE)
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r echo=TRUE}
+nData$date <- strptime(nData$date,"%Y-%m-%d")
+nData$weekday <- ifelse(weekdays(nData$date)=="Saturday"|weekdays(nData$date)=="Sunday","Weekend","Weekday")
+library(ggplot2)
+qplot(interval, steps, data=nData, facets = . ~ weekday, geom = "line")
+```
 
-Couldn't do, Not enough time :(
+
